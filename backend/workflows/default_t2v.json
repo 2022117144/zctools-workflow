@@ -1,0 +1,599 @@
+{
+  "5075": {
+    "inputs": {
+      "filename_prefix": "video/LTX-2",
+      "format": "auto",
+      "codec": "auto",
+      "video": [
+        "5253:5229",
+        0
+      ]
+    },
+    "class_type": "SaveVideo",
+    "_meta": {
+      "title": "保存视频"
+    }
+  },
+  "5217": {
+    "inputs": {
+      "width": 720,
+      "height": 1280,
+      "batch_size": 1,
+      "color": 0
+    },
+    "class_type": "EmptyImage",
+    "_meta": {
+      "title": "视频宽高"
+    }
+  },
+  "5218": {
+    "inputs": {
+      "value": 121
+    },
+    "class_type": "PrimitiveInt",
+    "_meta": {
+      "title": "视频帧数length"
+    }
+  },
+  "5219": {
+    "inputs": {
+      "ckpt_name": "ltx-2-19b-distilled-fp8.safetensors"
+    },
+    "class_type": "LTXVAudioVAELoader",
+    "_meta": {
+      "title": "LTXV音频VAE加载器"
+    }
+  },
+  "5221": {
+    "inputs": {
+      "value": 24
+    },
+    "class_type": "PrimitiveFloat",
+    "_meta": {
+      "title": "视频帧率Frame Rate"
+    }
+  },
+  "5222": {
+    "inputs": {
+      "value": "一个3D写实风格的骷髅人坐在木质餐桌前吃晚餐。骷髅骨骼结构完整清晰，表面具有真实骨骼纹理和轻微磨损痕迹。餐桌上摆放着牛排、面包和水果。骷髅人用右手拿起刀叉，缓慢切开牛排，将食物送入口中，做出自然咀嚼动作。虽然没有肌肉和皮肤，但下颌骨真实开合运动，表现出正在进食的状态。镜头中景拍摄，轻微推近。暖色餐厅灯光照射在骨骼表面，产生真实反射和阴影。背景为温馨复古餐厅环境。3D超写实渲染，电影级光影，极高细节，真实物理动画，流畅动作，景深效果，体积光，8K quality，cinematic，photorealistic CGI，Unreal Engine 5，smooth motion。"
+    },
+    "class_type": "PrimitiveStringMultiline",
+    "_meta": {
+      "title": "正向提示词Positive Prompt"
+    }
+  },
+  "5227": {
+    "inputs": {
+      "gemma_path": "gemma-3-12b-it-qat-q4_0-unquantized/model-00002-of-00005.safetensors",
+      "ltxv_path": "ltx-2-19b-distilled-fp8.safetensors",
+      "max_length": 1024
+    },
+    "class_type": "LTXVGemmaCLIPModelLoader",
+    "_meta": {
+      "title": "🅛🅣🅧 Gemma 3 Model Loader"
+    }
+  },
+  "5228": {
+    "inputs": {
+      "ckpt_name": "ltx-2-19b-distilled-fp8.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Checkpoint加载器（简易）"
+    }
+  },
+  "5244": {
+    "inputs": {
+      "model_name": "ltx-2-spatial-upscaler-x2-1.0.safetensors"
+    },
+    "class_type": "LatentUpscaleModelLoader",
+    "_meta": {
+      "title": "加载Latent放大模型"
+    }
+  },
+  "5251": {
+    "inputs": {
+      "PowerLoraLoaderHeaderWidget": {
+        "type": "PowerLoraLoaderHeaderWidget"
+      },
+      "lora_1": {
+        "on": true,
+        "lora": "ltx-2-19b-ic-lora-detailer.safetensors",
+        "strength": 1
+      },
+      "lora_2": {
+        "on": true,
+        "lora": "None",
+        "strength": 1
+      },
+      "lora_3": {
+        "on": true,
+        "lora": "None",
+        "strength": 1
+      },
+      "lora_4": {
+        "on": true,
+        "lora": "None",
+        "strength": 1
+      },
+      "lora_5": {
+        "on": true,
+        "lora": "None",
+        "strength": 1
+      },
+      "➕ Add Lora": "",
+      "model": [
+        "5228",
+        0
+      ]
+    },
+    "class_type": "Power Lora Loader (rgthree)",
+    "_meta": {
+      "title": "阶段二LoRA"
+    }
+  },
+  "5252": {
+    "inputs": {
+      "PowerLoraLoaderHeaderWidget": {
+        "type": "PowerLoraLoaderHeaderWidget"
+      },
+      "lora_1": {
+        "on": true,
+        "lora": "ltx-2-19b-ic-lora-detailer.safetensors",
+        "strength": 1
+      },
+      "lora_2": {
+        "on": true,
+        "lora": "None",
+        "strength": 1
+      },
+      "lora_3": {
+        "on": true,
+        "lora": "None",
+        "strength": 1
+      },
+      "lora_4": {
+        "on": true,
+        "lora": "None",
+        "strength": 1
+      },
+      "lora_5": {
+        "on": true,
+        "lora": "None",
+        "strength": 1
+      },
+      "➕ Add Lora": "",
+      "model": [
+        "5228",
+        0
+      ]
+    },
+    "class_type": "Power Lora Loader (rgthree)",
+    "_meta": {
+      "title": "阶段一LoRA"
+    }
+  },
+  "5253:5229": {
+    "inputs": {
+      "fps": [
+        "5221",
+        0
+      ],
+      "images": [
+        "5253:5232:5185",
+        0
+      ],
+      "audio": [
+        "5253:5232:5169",
+        0
+      ]
+    },
+    "class_type": "CreateVideo",
+    "_meta": {
+      "title": "创建视频"
+    }
+  },
+  "5253:5225": {
+    "inputs": {
+      "prompt": [
+        "5222",
+        0
+      ],
+      "system_prompt": "You are a Creative Assistant. Given a user's raw input prompt describing a scene or concept, expand it into a detailed video generation prompt with specific visuals and integrated audio to guide a text-to-video model.\n\n#### Guidelines\n- Strictly follow all aspects of the user's raw input: include every element requested (style, visuals, motions, actions, camera movement, audio).\n    - If the input is vague, invent concrete details: lighting, textures, materials, scene settings, etc.\n        - For characters: describe gender, clothing, hair, expressions. DO NOT invent unrequested characters.\n- Use active language: present-progressive verbs (\"is walking,\" \"speaking\"). If no action specified, describe natural movements.\n- Maintain chronological flow: use temporal connectors (\"as,\" \"then,\" \"while\").\n- Audio layer: Describe complete soundscape (background audio, ambient sounds, SFX, speech/music when requested). Integrate sounds chronologically alongside actions. Be specific (e.g., \"soft footsteps on tile\"), not vague (e.g., \"ambient sound is present\").\n- Speech (only when requested): \n    - For ANY speech-related input (talking, conversation, singing, etc.), ALWAYS include exact words in quotes with voice characteristics (e.g., \"The man says in an excited voice: 'You won't believe what I just saw!'\").\n    - Specify language if not English and accent if relevant.\n- Style: Include visual style at the beginning: \"Style: <style>, <rest of prompt>.\" Default to cinematic-realistic if unspecified. Omit if unclear.\n- Visual and audio only: NO non-visual/auditory senses (smell, taste, touch).\n- Restrained language: Avoid dramatic/exaggerated terms. Use mild, natural phrasing.\n    - Colors: Use plain terms (\"red dress\"), not intensified (\"vibrant blue,\" \"bright red\").\n    - Lighting: Use neutral descriptions (\"soft overhead light\"), not harsh (\"blinding light\").\n    - Facial features: Use delicate modifiers for subtle features (i.e., \"subtle freckles\").\n\n#### Important notes: \n- Analyze the user's raw input carefully. In cases of FPV or POV, exclude the description of the subject whose POV is requested.\n- Camera motion: DO NOT invent camera motion unless requested by the user.\n- Speech: DO NOT modify user-provided character dialogue unless it's a typo.\n- No timestamps or cuts: DO NOT use timestamps or describe scene cuts unless explicitly requested.\n- Format: DO NOT use phrases like \"The scene opens with...\". Start directly with Style (optional) and chronological scene description.\n- Format: DO NOT start your response with special characters.\n- DO NOT invent dialogue unless the user mentions speech/talking/singing/conversation.\n- If the user's raw input prompt is highly detailed, chronological and in the requested format: DO NOT make major edits or introduce new elements. Add/enhance audio descriptions if missing.\n\n#### Output Format (Strict):\n- Single continuous paragraph in natural language (English).\n- NO titles, headings, prefaces, code fences, or Markdown.\n- If unsafe/invalid, return original user prompt. Never ask questions or clarifications.\n\nYour output quality is CRITICAL. Generate visually rich, dynamic prompts with integrated audio for high-quality video generation.\n\n#### Example\nInput: \"A woman at a coffee shop talking on the phone\"\nOutput:\nStyle: realistic with cinematic lighting. In a medium close-up, a woman in her early 30s with shoulder-length brown hair sits at a small wooden table by the window. She wears a cream-colored turtleneck sweater, holding a white ceramic coffee cup in one hand and a smartphone to her ear with the other. Ambient cafe sounds fill the space—espresso machine hiss, quiet conversations, gentle clinking of cups. The woman listens intently, nodding slightly, then takes a sip of her coffee and sets it down with a soft clink. Her face brightens into a warm smile as she speaks in a clear, friendly voice, 'That sounds perfect! I'd love to meet up this weekend. How about Saturday afternoon?' She laughs softly—a genuine chuckle—and shifts in her chair. Behind her, other patrons move subtly in and out of focus. 'Great, I'll see you then,' she concludes cheerfully, lowering the phone.",
+      "max_tokens": 512,
+      "bypass_i2v": true,
+      "seed": 4205178723,
+      "clip": [
+        "5227",
+        0
+      ]
+    },
+    "class_type": "LTXVGemmaEnhancePrompt",
+    "_meta": {
+      "title": "Enhancer"
+    }
+  },
+  "5253:5224": {
+    "inputs": {
+      "frame_rate": [
+        "5221",
+        0
+      ],
+      "positive": [
+        "5253:5223",
+        0
+      ],
+      "negative": [
+        "5253:5223",
+        0
+      ]
+    },
+    "class_type": "LTXVConditioning",
+    "_meta": {
+      "title": "LTXV条件"
+    }
+  },
+  "5253:5223": {
+    "inputs": {
+      "text": [
+        "5253:5225",
+        0
+      ],
+      "clip": [
+        "5227",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Enhanced Prompt (Positive)"
+    }
+  },
+  "5253:5220": {
+    "inputs": {
+      "a": [
+        "5221",
+        0
+      ]
+    },
+    "class_type": "CM_FloatToInt",
+    "_meta": {
+      "title": "Frame Rate"
+    }
+  },
+  "5253:5232:5155": {
+    "inputs": {
+      "noise": [
+        "5253:5232:5154",
+        0
+      ],
+      "guider": [
+        "5253:5232:5171",
+        0
+      ],
+      "sampler": [
+        "5253:5232:5152",
+        0
+      ],
+      "sigmas": [
+        "5253:5232:5183",
+        0
+      ],
+      "latent_image": [
+        "5253:5232:5160",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "自定义采样器（高级）"
+    }
+  },
+  "5253:5232:5156": {
+    "inputs": {
+      "av_latent": [
+        "5253:5232:5155",
+        1
+      ]
+    },
+    "class_type": "LTXVSeparateAVLatent",
+    "_meta": {
+      "title": "LTXV分离音视频潜空间"
+    }
+  },
+  "5253:5232:5170": {
+    "inputs": {
+      "frames_number": [
+        "5218",
+        0
+      ],
+      "frame_rate": [
+        "5253:5220",
+        0
+      ],
+      "batch_size": 1,
+      "audio_vae": [
+        "5219",
+        0
+      ]
+    },
+    "class_type": "LTXVEmptyLatentAudio",
+    "_meta": {
+      "title": "LTXV 空音频潜空间"
+    }
+  },
+  "5253:5232:5163": {
+    "inputs": {
+      "width": [
+        "5253:5232:5165",
+        0
+      ],
+      "height": [
+        "5253:5232:5165",
+        1
+      ],
+      "length": [
+        "5218",
+        0
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptyLTXVLatentVideo",
+    "_meta": {
+      "title": "空Latent视频（LTXV）"
+    }
+  },
+  "5253:5232:5150": {
+    "inputs": {
+      "sampler_name": "euler"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "K采样器选择"
+    }
+  },
+  "5253:5232:5152": {
+    "inputs": {
+      "sampler_name": "euler"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "K采样器选择"
+    }
+  },
+  "5253:5232:5159": {
+    "inputs": {
+      "noise": [
+        "5253:5232:5158",
+        0
+      ],
+      "guider": [
+        "5253:5232:5151",
+        0
+      ],
+      "sampler": [
+        "5253:5232:5150",
+        0
+      ],
+      "sigmas": [
+        "5253:5232:5182",
+        0
+      ],
+      "latent_image": [
+        "5253:5232:5162",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "自定义采样器（高级）"
+    }
+  },
+  "5253:5232:5151": {
+    "inputs": {
+      "cfg": 1,
+      "model": [
+        "5252",
+        0
+      ],
+      "positive": [
+        "5253:5224",
+        0
+      ],
+      "negative": [
+        "5253:5224",
+        1
+      ]
+    },
+    "class_type": "CFGGuider",
+    "_meta": {
+      "title": "CFG引导器"
+    }
+  },
+  "5253:5232:5182": {
+    "inputs": {
+      "sigmas": "1., 0.99375, 0.9875, 0.98125, 0.975, 0.909375, 0.725, 0.421875, 0.0"
+    },
+    "class_type": "ManualSigmas",
+    "_meta": {
+      "title": "自定义Sigmas"
+    }
+  },
+  "5253:5232:5183": {
+    "inputs": {
+      "sigmas": "0.909375, 0.725, 0.421875, 0.0"
+    },
+    "class_type": "ManualSigmas",
+    "_meta": {
+      "title": "自定义Sigmas"
+    }
+  },
+  "5253:5232:5158": {
+    "inputs": {
+      "noise_seed": 45
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "随机噪波"
+    }
+  },
+  "5253:5232:5154": {
+    "inputs": {
+      "noise_seed": 420
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "随机噪波"
+    }
+  },
+  "5253:5232:5160": {
+    "inputs": {
+      "video_latent": [
+        "5253:5232:5187",
+        0
+      ],
+      "audio_latent": [
+        "5253:5232:5167",
+        1
+      ]
+    },
+    "class_type": "LTXVConcatAVLatent",
+    "_meta": {
+      "title": "LTXVConcatAVLatent"
+    }
+  },
+  "5253:5232:5171": {
+    "inputs": {
+      "cfg": 1,
+      "model": [
+        "5251",
+        0
+      ],
+      "positive": [
+        "5253:5224",
+        0
+      ],
+      "negative": [
+        "5253:5224",
+        1
+      ]
+    },
+    "class_type": "CFGGuider",
+    "_meta": {
+      "title": "CFG引导器"
+    }
+  },
+  "5253:5232:5169": {
+    "inputs": {
+      "samples": [
+        "5253:5232:5156",
+        1
+      ],
+      "audio_vae": [
+        "5219",
+        0
+      ]
+    },
+    "class_type": "LTXVAudioVAEDecode",
+    "_meta": {
+      "title": "LTXV音频VAE解码"
+    }
+  },
+  "5253:5232:5164": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "scale_by": 0.5,
+      "image": [
+        "5217",
+        0
+      ]
+    },
+    "class_type": "ImageScaleBy",
+    "_meta": {
+      "title": "缩放图像（比例）"
+    }
+  },
+  "5253:5232:5165": {
+    "inputs": {
+      "image": [
+        "5253:5232:5164",
+        0
+      ]
+    },
+    "class_type": "GetImageSize",
+    "_meta": {
+      "title": "获取图像尺寸"
+    }
+  },
+  "5253:5232:5167": {
+    "inputs": {
+      "av_latent": [
+        "5253:5232:5159",
+        1
+      ]
+    },
+    "class_type": "LTXVSeparateAVLatent",
+    "_meta": {
+      "title": "LTXV分离音视频潜空间"
+    }
+  },
+  "5253:5232:5187": {
+    "inputs": {
+      "samples": [
+        "5253:5232:5167",
+        0
+      ],
+      "upscale_model": [
+        "5244",
+        0
+      ],
+      "vae": [
+        "5228",
+        2
+      ]
+    },
+    "class_type": "LTXVLatentUpsampler",
+    "_meta": {
+      "title": "LTXV潜空间上采样器"
+    }
+  },
+  "5253:5232:5162": {
+    "inputs": {
+      "video_latent": [
+        "5253:5232:5163",
+        0
+      ],
+      "audio_latent": [
+        "5253:5232:5170",
+        0
+      ]
+    },
+    "class_type": "LTXVConcatAVLatent",
+    "_meta": {
+      "title": "LTXVConcatAVLatent"
+    }
+  },
+  "5253:5232:5185": {
+    "inputs": {
+      "spatial_tiles": 4,
+      "spatial_overlap": 4,
+      "temporal_tile_length": 16,
+      "temporal_overlap": 4,
+      "last_frame_fix": false,
+      "working_device": "auto",
+      "working_dtype": "auto",
+      "vae": [
+        "5228",
+        2
+      ],
+      "latents": [
+        "5253:5232:5156",
+        0
+      ]
+    },
+    "class_type": "LTXVSpatioTemporalTiledVAEDecode",
+    "_meta": {
+      "title": "🅛🅣🅧 LTXV Spatio Temporal Tiled VAE Decode"
+    }
+  }
+}

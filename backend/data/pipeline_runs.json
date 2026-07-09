@@ -1,0 +1,1622 @@
+{
+  "run_409564e982f6": {
+    "run_id": "run_409564e982f6",
+    "project_id": "",
+    "status": "completed",
+    "current_step": 6,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "将分镜提示词发送到 PhotoGPT 生成图片【待接】",
+        "optional": false,
+        "stub": true,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "将分镜图片送入 insMind 后端生成视频片段【待接】",
+        "optional": false,
+        "stub": true,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品【待接】",
+        "optional": false,
+        "stub": true,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-09T10:52:10.517887",
+    "updated_at": "2026-07-09T10:52:10.522141",
+    "error": ""
+  },
+  "run_d64ea35c0a0f": {
+    "run_id": "run_d64ea35c0a0f",
+    "project_id": "",
+    "status": "completed",
+    "current_step": 6,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "将分镜提示词发送到 PhotoGPT 生成图片【待接】",
+        "optional": false,
+        "stub": true,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "将分镜图片送入 insMind 后端生成视频片段【待接】",
+        "optional": false,
+        "stub": true,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品【待接】",
+        "optional": false,
+        "stub": true,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-09T14:07:27.013581",
+    "updated_at": "2026-07-09T14:07:27.018157",
+    "error": ""
+  },
+  "run_3846ebc340a0": {
+    "run_id": "run_3846ebc340a0",
+    "project_id": "",
+    "status": "completed",
+    "current_step": 6,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "将分镜提示词发送到 PhotoGPT 生成图片【待接】",
+        "optional": false,
+        "stub": true,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "将分镜图片送入 insMind 后端生成视频片段【待接】",
+        "optional": false,
+        "stub": true,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品【待接】",
+        "optional": false,
+        "stub": true,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-09T14:07:43.444092",
+    "updated_at": "2026-07-09T14:07:43.447083",
+    "error": ""
+  },
+  "run_665c75243ed3": {
+    "run_id": "run_665c75243ed3",
+    "project_id": "",
+    "status": "completed",
+    "current_step": 6,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "将分镜提示词发送到 PhotoGPT 生成图片【待接】",
+        "optional": false,
+        "stub": true,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "将分镜图片送入 insMind 后端生成视频片段【待接】",
+        "optional": false,
+        "stub": true,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品【待接】",
+        "optional": false,
+        "stub": true,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-09T14:07:48.664280",
+    "updated_at": "2026-07-09T14:07:48.666759",
+    "error": ""
+  },
+  "run_63d1ec51fdcc": {
+    "run_id": "run_63d1ec51fdcc",
+    "project_id": "",
+    "status": "error",
+    "current_step": 1,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "error",
+        "output_summary": "",
+        "error": "edge-tts 失败: Traceback (most recent call last):\n  File \"C:\\Users\\Administrator\\AppData\\Roaming\\uv\\python\\cpython-3.11-windows-x86_64-none\\Lib\\asyncio\\windows_events.py\", line 494, in finish_recv\n    return ov.getr"
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "调用 PhotoGPT 为每个分镜生成图片",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "通过 insMind 后端为每个分镜生成视频片段",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品（BGM源待接）",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-09T21:32:24.600439",
+    "updated_at": "2026-07-09T21:32:24.602435",
+    "error": "步骤 文案 + STR音频 失败: edge-tts 失败: Traceback (most recent call last):\n  File \"C:\\Users\\Administrator\\AppData\\Roaming\\uv\\python\\cpython-3.11-windows-x86_64-none\\Lib\\asyncio\\windows_events.py\", line 494, in finish_recv\n    return ov.getr"
+  },
+  "run_218317838b74": {
+    "run_id": "run_218317838b74",
+    "project_id": "",
+    "status": "error",
+    "current_step": 1,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "error",
+        "output_summary": "",
+        "error": "edge-tts 失败: Traceback (most recent call last):\n  File \"C:\\Users\\Administrator\\AppData\\Roaming\\uv\\python\\cpython-3.11-windows-x86_64-none\\Lib\\asyncio\\windows_events.py\", line 494, in finish_recv\n    return ov.getresult()\n           ^^^^^^^^^^^^^^\nOSError: [WinError 64] 指定的网络名不再可用。\n\nDuring handling of the above e"
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "调用 PhotoGPT 为每个分镜生成图片",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "通过 insMind 后端为每个分镜生成视频片段",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品（BGM源待接）",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-09T21:35:52.971077",
+    "updated_at": "2026-07-09T21:35:52.975446",
+    "error": "步骤 文案 + STR音频 失败: edge-tts 失败: Traceback (most recent call last):\n  File \"C:\\Users\\Administrator\\AppData\\Roaming\\uv\\python\\cpython-3.11-windows-x86_64-none\\Lib\\asyncio\\windows_events.py\", line 494, in finish_recv\n    return ov.getresult()\n           ^^^^^^^^^^^^^^\nOSError: [WinError 64] 指定的网络名不再可用。\n\nDuring handling of the above e"
+  },
+  "run_5ea835e379c2": {
+    "run_id": "run_5ea835e379c2",
+    "project_id": "",
+    "status": "error",
+    "current_step": 1,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "error",
+        "output_summary": "",
+        "error": "edge-tts 失败: "
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "调用 PhotoGPT 为每个分镜生成图片",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "通过 insMind 后端为每个分镜生成视频片段",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品（BGM源待接）",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-09T21:39:52.786151",
+    "updated_at": "2026-07-09T21:39:52.789292",
+    "error": "步骤 文案 + STR音频 失败: edge-tts 失败: "
+  },
+  "run_f246bf096f4a": {
+    "run_id": "run_f246bf096f4a",
+    "project_id": "",
+    "status": "error",
+    "current_step": 1,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "error",
+        "output_summary": "",
+        "error": "edge-tts 失败: {\"success\": false, \"error\": \"Cannot connect to host speech.platform.bing.com:443 ssl:<ssl.SSLContext object at 0x00000249B32D9760> [\\u8fdc\\u7a0b\\u4e3b\\u673a\\u5f3a\\u8feb\\u5173\\u95ed\\u4e86\\u4e00\\u4e2a\\u73b0\\u6709\\u7684\\u8fde\\u63a5\\u3002]\"}"
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "调用 PhotoGPT 为每个分镜生成图片",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "通过 insMind 后端为每个分镜生成视频片段",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品（BGM源待接）",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-09T21:51:25.561474",
+    "updated_at": "2026-07-09T21:51:25.563475",
+    "error": "步骤 文案 + STR音频 失败: edge-tts 失败: {\"success\": false, \"error\": \"Cannot connect to host speech.platform.bing.com:443 ssl:<ssl.SSLContext object at 0x00000249B32D9760> [\\u8fdc\\u7a0b\\u4e3b\\u673a\\u5f3a\\u8feb\\u5173\\u95ed\\u4e86\\u4e00\\u4e2a\\u73b0\\u6709\\u7684\\u8fde\\u63a5\\u3002]\"}"
+  },
+  "run_65ca73d91953": {
+    "run_id": "run_65ca73d91953",
+    "project_id": "",
+    "status": "completed",
+    "current_step": 6,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "调用 PhotoGPT 为每个分镜生成图片",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "通过 insMind 后端为每个分镜生成视频片段",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品（BGM源待接）",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-09T21:59:33.886900",
+    "updated_at": "2026-07-09T22:04:53.797233",
+    "error": ""
+  },
+  "run_8cd1b6c6e02b": {
+    "run_id": "run_8cd1b6c6e02b",
+    "project_id": "",
+    "status": "completed",
+    "current_step": 6,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "调用 PhotoGPT 为每个分镜生成图片",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "通过 insMind 后端为每个分镜生成视频片段",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品（BGM源待接）",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-09T22:12:02.750748",
+    "updated_at": "2026-07-09T22:16:52.039312",
+    "error": ""
+  },
+  "run_09909ee4fa4f": {
+    "run_id": "run_09909ee4fa4f",
+    "project_id": "",
+    "status": "completed",
+    "current_step": 6,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "调用 PhotoGPT 为每个分镜生成图片",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "通过 insMind 后端为每个分镜生成视频片段",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品（BGM源待接）",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-09T23:01:35.283276",
+    "updated_at": "2026-07-09T23:09:35.661798",
+    "error": ""
+  },
+  "run_3796c003d80a": {
+    "run_id": "run_3796c003d80a",
+    "project_id": "",
+    "status": "completed",
+    "current_step": 6,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "调用 PhotoGPT 为每个分镜生成图片",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "通过 insMind 后端为每个分镜生成视频片段",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品（BGM源待接）",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-09T23:26:47.256919",
+    "updated_at": "2026-07-09T23:38:45.059265",
+    "error": ""
+  },
+  "run_721f93e6e9d1": {
+    "run_id": "run_721f93e6e9d1",
+    "project_id": "",
+    "status": "completed",
+    "current_step": 6,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "调用 PhotoGPT 为每个分镜生成图片",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "通过 insMind 后端为每个分镜生成视频片段",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品（BGM源待接）",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-10T00:18:57.940060",
+    "updated_at": "2026-07-10T00:34:19.154383",
+    "error": ""
+  },
+  "run_611718b28836": {
+    "run_id": "run_611718b28836",
+    "project_id": "",
+    "status": "error",
+    "current_step": 4,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "调用 PhotoGPT 为每个分镜生成图片",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "通过 insMind 后端为每个分镜生成视频片段",
+        "optional": false,
+        "stub": false,
+        "status": "error",
+        "output_summary": "",
+        "error": "无法连接后端 (http://localhost:8005)"
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品（BGM源待接）",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-10T00:48:34.397348",
+    "updated_at": "2026-07-10T00:49:22.460081",
+    "error": "步骤 视频生成 (insm后端) 失败: 无法连接后端 (http://localhost:8005)"
+  },
+  "run_29fe755f72ff": {
+    "run_id": "run_29fe755f72ff",
+    "project_id": "",
+    "status": "error",
+    "current_step": 4,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "调用 PhotoGPT 为每个分镜生成图片",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "通过 insMind 后端为每个分镜生成视频片段",
+        "optional": false,
+        "stub": false,
+        "status": "error",
+        "output_summary": "",
+        "error": "无法连接后端 (http://localhost:8005)"
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品（BGM源待接）",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-10T00:48:51.615076",
+    "updated_at": "2026-07-10T00:49:43.966712",
+    "error": "步骤 视频生成 (insm后端) 失败: 无法连接后端 (http://localhost:8005)"
+  },
+  "run_ca663915976f": {
+    "run_id": "run_ca663915976f",
+    "project_id": "",
+    "status": "error",
+    "current_step": 4,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "调用 PhotoGPT 为每个分镜生成图片",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "通过 insMind 后端为每个分镜生成视频片段",
+        "optional": false,
+        "stub": false,
+        "status": "error",
+        "output_summary": "",
+        "error": "无法连接后端 (http://localhost:8005)"
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品（BGM源待接）",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-10T00:49:58.171928",
+    "updated_at": "2026-07-10T00:51:02.955531",
+    "error": "步骤 视频生成 (insm后端) 失败: 无法连接后端 (http://localhost:8005)"
+  },
+  "run_991b68790ecb": {
+    "run_id": "run_991b68790ecb",
+    "project_id": "",
+    "status": "error",
+    "current_step": 4,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "调用 PhotoGPT 为每个分镜生成图片",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "通过 insMind 后端为每个分镜生成视频片段",
+        "optional": false,
+        "stub": false,
+        "status": "error",
+        "output_summary": "",
+        "error": "无法连接后端 (http://localhost:8005)"
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品（BGM源待接）",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-10T00:50:31.329520",
+    "updated_at": "2026-07-10T00:51:27.359015",
+    "error": "步骤 视频生成 (insm后端) 失败: 无法连接后端 (http://localhost:8005)"
+  },
+  "run_30e8a02fac45": {
+    "run_id": "run_30e8a02fac45",
+    "project_id": "",
+    "status": "error",
+    "current_step": 4,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "调用 PhotoGPT 为每个分镜生成图片",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "通过 insMind 后端为每个分镜生成视频片段",
+        "optional": false,
+        "stub": false,
+        "status": "error",
+        "output_summary": "",
+        "error": "无法连接后端 (http://localhost:8005)"
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品（BGM源待接）",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-10T01:00:09.820674",
+    "updated_at": "2026-07-10T01:01:02.394007",
+    "error": "步骤 视频生成 (insm后端) 失败: 无法连接后端 (http://localhost:8005)"
+  },
+  "run_5eb5681b59dd": {
+    "run_id": "run_5eb5681b59dd",
+    "project_id": "",
+    "status": "error",
+    "current_step": 4,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "调用 PhotoGPT 为每个分镜生成图片",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "通过 insMind 后端为每个分镜生成视频片段",
+        "optional": false,
+        "stub": false,
+        "status": "error",
+        "output_summary": "",
+        "error": "无法连接后端 (http://localhost:8005)"
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品（BGM源待接）",
+        "optional": false,
+        "stub": false,
+        "status": "pending",
+        "output_summary": "",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-10T01:20:14.850250",
+    "updated_at": "2026-07-10T01:21:16.067838",
+    "error": "步骤 视频生成 (insm后端) 失败: 无法连接后端 (http://localhost:8005)"
+  },
+  "run_e40faaf958f3": {
+    "run_id": "run_e40faaf958f3",
+    "project_id": "",
+    "status": "completed",
+    "current_step": 6,
+    "steps": [
+      {
+        "name": "style_prompt",
+        "label": "风格提示词",
+        "description": "选择/注入视觉风格锚点（可选）",
+        "optional": true,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "🎨 （未选择）...",
+        "error": ""
+      },
+      {
+        "name": "script_audio",
+        "label": "文案 + STR音频",
+        "description": "输入文案脚本，生成旁白/配音音频",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "✓ 完成",
+        "error": ""
+      },
+      {
+        "name": "storyboard_prompts",
+        "label": "分镜提示词",
+        "description": "从文案+风格生成逐镜头画面描述",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "📋 0 个分镜",
+        "error": ""
+      },
+      {
+        "name": "photogpt_images",
+        "label": "分镜图片 (photogpt)",
+        "description": "调用 PhotoGPT 为每个分镜生成图片",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "✓ 完成",
+        "error": ""
+      },
+      {
+        "name": "insmind_video",
+        "label": "视频生成 (insm后端)",
+        "description": "通过 insMind 后端为每个分镜生成视频片段",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "✓ 完成",
+        "error": ""
+      },
+      {
+        "name": "ffmpeg_merge",
+        "label": "整合视频 (ffmpeg)",
+        "description": "拼接所有视频片段为完整视频 + 可选配乐",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "🎬 合成完成",
+        "error": ""
+      },
+      {
+        "name": "bgm_send",
+        "label": "加BGM → 发送",
+        "description": "添加背景音乐并导出/发送成品（BGM源待接）",
+        "optional": false,
+        "stub": false,
+        "status": "completed",
+        "output_summary": "✓ 完成",
+        "error": ""
+      }
+    ],
+    "created_at": "2026-07-10T07:16:09.721121",
+    "updated_at": "2026-07-10T07:16:09.726378",
+    "error": ""
+  }
+}

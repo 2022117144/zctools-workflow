@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>智创工具</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ====== 顶部 ====== -->
+<header id="header">
+  <div class="header-left">
+    <span class="logo">🎬</span>
+    <h1>智创工具</h1>
+    <span class="version">v1.0</span>
+  </div>
+  <div class="header-center">
+    <select id="projectSelector" onchange="switchProject(this.value)">
+      <option value="">— 选择项目 —</option>
+    </select>
+    <button class="btn btn-sm btn-secondary" onclick="showNewProjectModal()">＋ 新建</button>
+    <button class="btn btn-sm btn-outline" onclick="deleteCurrentProject()">🗑 删除</button>
+  </div>
+  <div class="header-right">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="statusText" class="status-text">就绪</span>
+  </div>
+</header>
+
+<!-- ====== 主内容 ====== -->
+<div id="main">
+
+  <!-- 左侧面板 -->
+  <div id="leftPanel">
+    <!-- Tab 栏 -->
+    <div class="tab-bar">
+      <button class="tab active" data-tab="script" onclick="switchTab('script')">📜 文案</button>
+      <button class="tab" data-tab="shots" onclick="switchTab('shots')">🎬 分镜</button>
+      <button class="tab" data-tab="voiceover" onclick="switchTab('voiceover')">🎙 旁白</button>
+      <button class="tab" data-tab="pipeline" onclick="switchTab('pipeline')">🔧 流水线</button>
+      <button class="tab" data-tab="settings" onclick="switchTab('settings')">⚙ 设置</button>
+    </div>
+
+    <!-- 文案 Tab -->
+    <div class="tab-content active" id="tab-script">
+      <div class="script-generate-bar">
+        <input id="scriptTopic" class="inp-full script-topic-input" placeholder="输入视频主题，如：一个关于春天的小故事" maxlength="200">
+        <button class="btn btn-primary btn-sm" onclick="generateScript()" id="genScriptBtn">✨ AI 生成</button>
+      </div>
+      <div class="script-options-bar">
+        <select id="scriptTone" class="sel-sm">
+          <option value="叙事">叙事</option>
+          <option value="温暖">温暖</option>
+          <option value="幽默">幽默</option>
+          <option value="科普">科普</option>
+          <option value="悬疑">悬疑</option>
+        </select>
+        <select id="promptSelector" class="sel-sm" onchange="onPromptChange()" title="系统提示词风格" style="min-width:120px">
+          <option value="builtin_general">通用叙事</option>
+        </select>
+        <button class="btn btn-sm btn-outline" onclick="showPromptModal()" title="管理提示词" style="font-size:11px">✎</button>
+        <input id="scriptWordCount" class="inp-sm" type="number" value="" min="0" max="1000" style="width:60px" placeholder="字数">
+        <button class="btn btn-sm btn-outline" onclick="generateScript()" style="display:none" id="dummyBtn"></button>
+      </div>
+      <div class="prompt-preview-bar" id="promptPreview">选择一种风格，AI 将按此风格生成文案</div>
+      <textarea id="storyInput" class="editor" placeholder="AI 生成的文案会出现在这里，你也可以手动修改..." spellcheck="false"></textarea>
+    </div>
+
+    <!-- 分镜 Tab -->
+    <div class="tab-content" id="tab-shots">
+      <div class="shots-header">
+        <div class="shots-title">📋 分镜列表</div>
+        <div class="shots-actions">
+          <button class="btn btn-sm btn-primary" onclick="analyzeScript()" id="analyzeBtn">🔍 分析文案生成</button>
+        </div>
+      </div>
+      <div class="shots-srt-bar" id="srtBar">
+        <span class="srt-label">📝 SRT 字幕</span>
+        <textarea id="srtOutput" class="srt-textarea" placeholder="点击分析文案生成分镜和SRT字幕..." readonly></textarea>
+      </div>
+      <div class="shots-grid" id="shotsGrid">
+        <div class="shots-placeholder">点击「分析文案生成」从文案生成分镜 + SRT 字幕</div>
+      </div>
+      <div class="shots-bottom-row">
+        <div class="shots-images-section" id="shotsImagesSection" style="display:none">
+          <div class="shots-images-header">
+            <span class="shots-images-title">🖼 分镜图片</span>
+            <select id="gridSizeSelect" class="sel-sm" onchange="changeGridSize()" style="font-size:11px">
+              <option value="1">1 宫格</option>
+              <option value="4">4 宫格</option>
+              <option value="9" selected>9 宫格</option>
+              <option value="16">16 宫格</option>
+            </select>
+          </div>
+          <div class="image-grid" id="imageGrid" data-size="9"></div>
+        </div>
+        <div class="shot-detail-panel" id="shotDetailPanel" style="display:none">
+        <div class="shot-detail-bar">
+          <span class="shot-detail-title" id="shotDetailTitle">选卡 #1</span>
+          <span class="shot-detail-duration" id="shotDetailDuration">3秒</span>
+        </div>
+        <div class="shot-detail-scene" id="shotDetailScene"></div>
+        <div class="shot-frames">
+          <div class="shot-frames-left">
+            <div class="frame-box">
+              <div class="frame-label">首帧</div>
+              <div class="frame-row">
+                <div class="frame-actions" id="firstFrameActions">
+                  <button class="btn btn-sm btn-outline" onclick="genFirstFrame()" id="genFirstBtn">🖼</button>
+                  <button class="btn btn-sm btn-outline" onclick="uploadFirstFrame()" id="uploadFirstBtn">📁</button>
+                  <input type="file" id="firstFrameUpload" accept="image/*" style="display:none" onchange="handleFirstFrameUpload(event)">
+                </div>
+                <div class="frame-image" id="firstFrameImage" data-shot-idx="">
+                  <div class="frame-placeholder">未生成</div>
+                </div>
+              </div>
+            </div>
+            <div class="frame-box">
+              <div class="frame-label">尾帧</div>
+              <div class="frame-row">
+                <div class="frame-actions">
+                  <button class="btn btn-sm btn-outline" onclick="genLastFrame()" id="genLastBtn">🖼</button>
+                  <button class="btn btn-sm btn-outline" onclick="uploadLastFrame()" id="uploadLastBtn">📁</button>
+                  <input type="file" id="lastFrameUpload" accept="image/*" style="display:none" onchange="handleLastFrameUpload(event)">
+                </div>
+                <div class="frame-image" id="lastFrameImage" data-shot-idx="">
+                  <div class="frame-placeholder">未生成</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="frame-box frame-box-video">
+            <div class="video-header">
+              <span class="frame-label">视频</span>
+              <button class="btn btn-accent btn-video-horizontal" onclick="genShotVideo()" id="genVideoBtn">🎬 生成视频</button>
+            </div>
+            <div class="shot-video-preview" id="shotVideoPreview">
+              <div class="frame-placeholder">未生成</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <!-- 旁白 Tab -->
+    <div class="tab-content" id="tab-voiceover">
+      <textarea id="voiceoverInput" class="editor" placeholder="输入旁白/配音文本..." spellcheck="false"></textarea>
+    </div>
+
+    <!-- 流水线 Tab -->
+    <div class="tab-content" id="tab-pipeline">
+      <div id="pipelineFlow"></div>
+      <div id="pipelineControls">
+        <button class="btn btn-primary btn-lg" onclick="runPipeline()" id="runPipelineBtn">▶ 执行流水线</button>
+        <button class="btn btn-danger btn-lg" onclick="stopPipeline()" id="stopPipelineBtn" style="display:none">⏹ 停止</button>
+        <button class="btn btn-outline" onclick="loadPipelineRuns()" id="refreshRunsBtn">↻ 刷新状态</button>
+      </div>
+      <div id="pipelineRuns">
+        <div class="section-title">执行记录</div>
+        <div id="pipelineRunList"></div>
+      </div>
+    </div>
+
+    <!-- 设置 Tab -->
+    <div class="tab-content" id="tab-settings">
+      <div class="settings-section">
+        <div class="settings-title">🤖 LLM 中转站配置</div>
+        <p class="settings-hint">配置 LLM API 用于文案增强和分镜拆分。API Key 保存在独立目录，不会写入代码。</p>
+        <div class="settings-row">
+          <label class="settings-label">API 地址 <span style="color:var(--red)">*</span></label>
+          <input id="llmBaseUrl" class="inp-full" placeholder="https://api.openai.com/v1">
+        </div>
+        <div class="settings-row">
+          <label class="settings-label">模型 <span style="color:var(--red)">*</span></label>
+          <input id="llmModel" class="inp-full" placeholder="gpt-4o">
+        </div>
+        <div class="settings-row">
+          <label class="settings-label">API Key <span style="color:var(--red)">*</span></label>
+          <input id="llmApiKey" class="inp-full" type="password" placeholder="sk-...">
+          <span id="llmKeyStatus" class="settings-status"></span>
+        </div>
+        <div class="settings-actions">
+          <button class="btn btn-primary" onclick="saveLLMConfig()">💾 保存配置</button>
+          <button class="btn btn-outline" onclick="testLLMConfig()">📡 测试连接</button>
+          <span id="llmTestResult" class="settings-test-result"></span>
+        </div>
+        <div class="settings-info" id="llmConfigInfo"></div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-title">🔊 TTS 语音</div>
+        <p class="settings-hint">旁白配音使用 edge-tts（免费本地），无需配置。</p>
+        <div class="settings-info">已就绪 ✅ 可选语音：zh-CN-XiaoxiaoNeural（女声）、zh-CN-YunxiNeural（男声）</div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-title">📁 API Key 存储位置</div>
+        <p class="settings-hint">所有 API Key 保存在独立目录，与源代码分离。</p>
+        <div class="settings-info path-info">backend/data/credentials/</div>
+      </div>
+    </div>
+
+    <!-- 底部：增强预览（弃用） -->
+    <div class="preview-bar" style="display:none">
+    </div>
+  </div>
+
+  <!-- 右侧面板 — 精简版 -->
+  <div id="rightPanel">
+    <section class="panel-section">
+      <div class="section-title">🎨 当前风格</div>
+      <select id="styleSelector" class="sel-full" onchange="onStyleChange()">
+        <option value="">— 选择风格 —</option>
+      </select>
+      <div class="anchor-box" id="styleAnchorBox" style="margin-top:6px">
+        <div class="anchor-label">风格锚点</div>
+        <div class="anchor-text" id="styleAnchorText" style="font-size:10px">（未选择）</div>
+      </div>
+    </section>
+
+    <section class="panel-section">
+      <div class="section-title">📐 视频参数</div>
+      <div class="param-row">
+        <label>比例</label>
+        <select id="aspectRatio" class="sel-sm">
+          <option value="16:9">16:9</option>
+          <option value="9:16">9:16</option>
+          <option value="1:1">1:1</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="panel-section" style="flex:1">
+      <div class="section-title">📊 流水线状态</div>
+      <div id="rightPipelineStatus" style="font-size:11px;color:var(--text-secondary)">
+        <div>步骤 1/7 · 文案 ✅</div>
+        <div>步骤 2/7 · STR ✅</div>
+        <div>步骤 3/7 · 分镜 ⏳</div>
+        <div style="color:var(--text-muted);margin-top:8px;font-size:10px">点击流水线 Tab 查看详情</div>
+      </div>
+    </section>
+
+    <div class="action-bar">
+      <button class="btn btn-accent btn-lg" onclick="switchTab('pipeline')">▶ 流水线</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 底部任务栏 ====== -->
+<div id="taskBar">
+  <div class="task-list" id="taskList">
+    <div class="task-placeholder">暂无生成任务</div>
+  </div>
+</div>
+
+<!-- ====== 新建项目弹窗 ====== -->
+<div class="modal-overlay" id="newProjectModal">
+  <div class="modal">
+    <div class="modal-header">新建项目</div>
+    <input id="newProjectName" class="inp-full" placeholder="项目名称" autofocus>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('newProjectModal')">取消</button>
+      <button class="btn btn-primary" onclick="createProject()">创建</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 提示词管理弹窗 ====== -->
+<div class="modal-overlay" id="promptModal">
+  <div class="modal modal-wide">
+    <div class="modal-header">🎯 系统提示词管理 <span style="font-size:11px;color:var(--text-muted);font-weight:400">（所有提示词可编辑/删除）</span></div>
+    <div class="modal-body">
+      <div class="prompt-list" id="promptList"></div>
+      <div class="prompt-editor">
+        <input id="newPromptName" class="inp-full" placeholder="提示词名称" style="margin-bottom:8px">
+        <textarea id="newPromptContent" class="prompt-textarea" placeholder="输入系统提示词内容..."></textarea>
+        <input id="editPromptId" type="hidden" value="">
+        <div class="modal-actions" style="margin-top:8px">
+          <button class="btn btn-outline" onclick="closeModal('promptModal')">关闭</button>
+          <button class="btn btn-outline" onclick="clearPromptEditor()">清空</button>
+          <button class="btn btn-primary" onclick="saveCustomPrompt()">💾 保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

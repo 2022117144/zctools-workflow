@@ -1,0 +1,36 @@
+# 智创工作流 — .gitignore
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# 环境
+.env
+venv/
+.venv/
+
+# 数据目录（保留目录结构，忽略内容）
+backend/data/credentials/
+backend/data/llm_config.json
+# 但保留 project_content 和空目录占位
+backend/data/project_content/
+!backend/data/project_content/.gitkeep
+
+# 日志
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Node
+node_modules/

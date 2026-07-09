@@ -1,0 +1,94 @@
+"""
+智创工具 — 自动守护脚本
+======================
+监控 http://localhost:8765 是否存活，进程死了自动重启。
+只有检测到端口被其他程序占用时才停止，避免无限循环。
+"""
+import os, sys, time, subprocess, requests
+
+SERVER_SCRIPT = os.path.join(os.path.dirname(__file__), "server.py")
+HEALTH_URL = "http://localhost:8765/api/health"
+CHECK_INTERVAL = 5
+MAX_FAILURES = 3
+
+def is_alive() -> bool:
+    try:
+        r = requests.get(HEALTH_URL, timeout=3, proxies={"http": "", "https": ""})
+        return r.status_code == 200
+    except:
+        return False
+
+def is_port_in_use(port: int = 8765) -> bool:
+    """检查端口是否被其他进程占用（非我们的进程）"""
+    import socket
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        try:
+            s.bind(("127.0.0.1", port))
+            return False  # 可以绑定，说明端口空闲
+        except OSError:
+            return True   # 端口被占用
+
+def main():
+    print("=" * 50)
+    print("🛡 智创工具守护脚本启动")
+    print(f"   监控端口: 8765")
+    print(f"   检查间隔: {CHECK_INTERVAL}秒")
+    print(f"   连续失败阈值: {MAX_FAILURES}次")
+    print("=" * 50)
+
+    failures = 0
+    server_process = None
+
+    while True:
+        if is_alive():
+            failures = 0
+            time.sleep(CHECK_INTERVAL)
+            continue
+
+        # 服务挂了
+        failures += 1
+        now = time.strftime("%H:%M:%S")
+
+        if failures < MAX_FAILURES:
+            print(f"[{now}] 服务未响应 ({failures}/{MAX_FAILURES})，等待下次检查...")
+            time.sleep(CHECK_INTERVAL)
+            continue
+
+        # 连续失败达到阈值，尝试重启
+        print(f"[{now}] ❌ 服务连续 {MAX_FAILURES} 次无响应，尝试重启...")
+
+        # 先检查端口是否被其他进程占用
+        if is_port_in_use(8765):
+            print(f"[{now}] ⚠️ 端口 8765 被其他进程占用，不重启。守护停止。")
+            print(f"[{now}] 请手动关闭占用进程后重新启动。")
+            break
+
+        # 启动新进程
+        try:
+            server_process = subprocess.Popen(
+                [sys.executable, SERVER_SCRIPT],
+                cwd=os.path.dirname(SERVER_SCRIPT),
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+            print(f"[{now}] ✅ 服务已重启 (PID: {server_process.pid})")
+            failures = 0
+            # 等待服务启动
+            for _ in range(6):  # 最多等 30 秒
+                time.sleep(5)
+                if is_alive():
+                    print(f"[{now}] ✅ 服务正常响应")
+                    break
+            else:
+                print(f"[{now}] ⚠️ 服务启动后仍无响应，继续监控...")
+        except Exception as e:
+            print(f"[{now}] ❌ 重启失败: {e}")
+            break
+
+        time.sleep(CHECK_INTERVAL)
+
+    print("守护脚本退出。")
+
+
+if __name__ == "__main__":
+    main()
