@@ -219,6 +219,12 @@ async function switchProject(id) {
   // 切换项目后重置流水线显示
   resetPipelineDisplay();
   await loadPipelineRuns();
+  // 如果该项目有正在执行的流水线，显示其当前状态
+  const runningRun = state.pipelineRuns.find((r) => r.status === "running");
+  if (runningRun) {
+    updatePipelineRunStatus(runningRun);
+    startPipelinePolling(runningRun.run_id);
+  }
 }
 
 function showNewProjectModal() {
@@ -250,6 +256,15 @@ function closeModal(id) {
   document.getElementById(id).classList.remove("show");
 }
 
+// 检查是否已选择项目
+function requireProject() {
+  if (!state.currentProject) {
+    alert("请先选择项目");
+    return false;
+  }
+  return true;
+}
+
 // ========== Tab 切换 ==========
 function switchTab(name) {
   state.tab = name;
@@ -263,6 +278,7 @@ function switchTab(name) {
 
 // ========== 分镜分析 + SRT ==========
 async function analyzeScript() {
+  if (!requireProject()) return;
   const script = document.getElementById("storyInput").value.trim();
   if (!script) { alert("请先在文案 Tab 生成或输入文案"); switchTab("script"); return; }
 
@@ -483,6 +499,7 @@ function saveShotData(idx, data) {
 }
 
 function genFirstFrame() {
+  if (!requireProject()) return;
   const idx = parseInt(document.getElementById("firstFrameImage").dataset.shotIdx);
   if (isNaN(idx)) { alert("请先选择一个分镜"); return; }
   const shot = state.currentShots && state.currentShots[idx];
@@ -512,6 +529,7 @@ function genFirstFrame() {
 }
 
 function genLastFrame() {
+  if (!requireProject()) return;
   const idx = parseInt(document.getElementById("lastFrameImage").dataset.shotIdx);
   if (isNaN(idx)) { alert("请先选择一个分镜"); return; }
   const shot = state.currentShots && state.currentShots[idx];
@@ -541,6 +559,7 @@ function genLastFrame() {
 }
 
 function genShotVideo() {
+  if (!requireProject()) return;
   const idx = state.selectedShotIdx;
   if (idx === undefined || idx === null) { alert("请先选择一个分镜"); return; }
   const shot = state.currentShots && state.currentShots[idx];
@@ -627,6 +646,7 @@ function getShotsText() {
 
 // ========== 生成视频 ==========
 async function generateVideo() {
+  if (!requireProject()) return;
   const enhanced = document.getElementById("enhancedPreview").textContent;
   if (enhanced.includes("选择一个风格预设") || !enhanced.trim()) {
     alert("请先增强提示词");
@@ -651,6 +671,7 @@ async function generateVideo() {
 
 // ========== TTS ==========
 async function genTTS() {
+  if (!requireProject()) return;
   const task = { id: "tts-" + Date.now(), name: "语音生成", type: "tts", progress: 0 };
   addTask(task);
   try {
@@ -739,23 +760,8 @@ function goToStepTab(stepName) {
 }
 
 function resetPipelineDisplay() {
-  // 重置流水线步骤显示到默认状态
-  const container = document.getElementById("pipelineFlow");
-  if (!container) return;
-  const stepEls = container.querySelectorAll(".pipe-step");
-  stepEls.forEach((el) => {
-    el.className = "pipe-step";
-    const nameEl = el.querySelector(".pipe-step-name");
-    if (nameEl) nameEl.innerHTML = nameEl.textContent.replace(/^[✅❌🔄⏳⏭️]\s*/, "");
-    const descEl = el.querySelector(".pipe-step-desc");
-    if (descEl) {
-      const stepName = el.dataset.step;
-      const stepDef = state.pipelineSteps.find(s => s.name === stepName);
-      if (stepDef) descEl.textContent = stepDef.description;
-    }
-  });
-  const titleEl = container.querySelector(".pipeline-title");
-  if (titleEl) titleEl.textContent = "📋 完整流水线";
+  // 重渲染流水线步骤（从步骤定义重建 DOM）
+  renderPipelineFlow();
   // 清空执行记录列表
   const listEl = document.getElementById("pipelineRunList");
   if (listEl) listEl.innerHTML = '<div class="pipeline-placeholder">暂无执行记录</div>';
@@ -767,9 +773,22 @@ function resetPipelineDisplay() {
       `<div>步骤 ${i + 1}/7 · ${l} ⏳</div>`
     ).join("") + '<div style="color:var(--text-muted);margin-top:8px;font-size:10px">点击流水线 Tab 查看详情</div>';
   }
+  // 清除轮询
+  if (pipelinePollTimer) {
+    clearInterval(pipelinePollTimer);
+    pipelinePollTimer = null;
+  }
 }
 
 async function runPipeline() {
+  if (!requireProject()) return;
+  // 检查是否有文案内容
+  const scriptText = document.getElementById("storyInput")?.value?.trim() || "";
+  if (!scriptText) {
+    alert("请先在文案 Tab 生成或输入文案内容");
+    switchTab("script");
+    return;
+  }
   const btn = document.getElementById("runPipelineBtn");
   const stopBtn = document.getElementById("stopPipelineBtn");
   btn.disabled = true;
@@ -914,6 +933,7 @@ function formatTime(iso) { if (!iso) return ""; const d = new Date(iso); return 
 
 // ========== AI 生成文案 ==========
 async function generateScript() {
+  if (!requireProject()) return;
   const topic = document.getElementById("scriptTopic").value.trim();
   if (!topic) { alert("请先输入视频主题"); return; }
   const btn = document.getElementById("genScriptBtn");
