@@ -50,6 +50,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (sel.value) {
     await loadProjectContent(sel.value);
   }
+  // 恢复上次的 Tab（刷新后保持）
+  const savedTab = localStorage.getItem("zctools_active_tab");
+  if (savedTab && ["script","shots","voiceover","pipeline","settings"].includes(savedTab)) {
+    switchTab(savedTab);
+  } else {
+    switchTab("script");
+  }
+  // 修复浏览器自动填充问题
+  const mi = document.getElementById("modifyInstruction");
+  if (mi) mi.value = "";
 });
 
 // ========== API 工具 ==========
@@ -206,6 +216,9 @@ async function switchProject(id) {
   } else {
     clearProjectContent();
   }
+  // 切换项目后重置流水线显示
+  resetPipelineDisplay();
+  await loadPipelineRuns();
 }
 
 function showNewProjectModal() {
@@ -240,6 +253,7 @@ function closeModal(id) {
 // ========== Tab 切换 ==========
 function switchTab(name) {
   state.tab = name;
+  localStorage.setItem("zctools_active_tab", name);
   document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("active", t.dataset.tab === name));
   document.querySelectorAll(".tab-content").forEach((c) => c.classList.toggle("active", c.id === "tab-" + name));
   if (name === "pipeline") loadPipelineRuns();
@@ -702,7 +716,7 @@ function renderPipelineFlow() {
             <div class="pipe-step-desc">${s.description}</div>
             <div class="pipe-step-tags">
               ${s.optional ? '<span class="tag tag-optional">可选</span>' : '<span class="tag tag-required">必需</span>'}
-              ${s.stub ? '<span class="tag tag-stub">待接</span>' : '<span class="tag tag-ready">就绪</span>'}
+              ${s.stub ? '<span class="tag tag-stub">待接</span>' : '<span class="tag tag-pending">等待执行</span>'}
             </div>
           </div>
         </div>
@@ -721,6 +735,37 @@ function goToStepTab(stepName) {
       document.getElementById("styleSelector")?.focus();
       document.getElementById("styleSelector")?.scrollIntoView({ behavior: "smooth" });
     }, 100);
+  }
+}
+
+function resetPipelineDisplay() {
+  // 重置流水线步骤显示到默认状态
+  const container = document.getElementById("pipelineFlow");
+  if (!container) return;
+  const stepEls = container.querySelectorAll(".pipe-step");
+  stepEls.forEach((el) => {
+    el.className = "pipe-step";
+    const nameEl = el.querySelector(".pipe-step-name");
+    if (nameEl) nameEl.innerHTML = nameEl.textContent.replace(/^[✅❌🔄⏳⏭️]\s*/, "");
+    const descEl = el.querySelector(".pipe-step-desc");
+    if (descEl) {
+      const stepName = el.dataset.step;
+      const stepDef = state.pipelineSteps.find(s => s.name === stepName);
+      if (stepDef) descEl.textContent = stepDef.description;
+    }
+  });
+  const titleEl = container.querySelector(".pipeline-title");
+  if (titleEl) titleEl.textContent = "📋 完整流水线";
+  // 清空执行记录列表
+  const listEl = document.getElementById("pipelineRunList");
+  if (listEl) listEl.innerHTML = '<div class="pipeline-placeholder">暂无执行记录</div>';
+  // 重置右侧面板流水线状态
+  const rightStatus = document.getElementById("rightPipelineStatus");
+  if (rightStatus) {
+    const labels = ["文案", "STR", "分镜", "图片", "视频", "合成", "发送"];
+    rightStatus.innerHTML = labels.map((l, i) =>
+      `<div>步骤 ${i + 1}/7 · ${l} ⏳</div>`
+    ).join("") + '<div style="color:var(--text-muted);margin-top:8px;font-size:10px">点击流水线 Tab 查看详情</div>';
   }
 }
 
@@ -743,22 +788,58 @@ async function runPipeline() {
     state.lastRunId = result.run_id;
     updatePipelineRunStatus(result);
     await loadPipelineRuns();
+    // 开始轮询进度
+    startPipelinePolling(result.run_id);
   } catch (e) { alert("流水线执行失败: " + e.message); }
   finally { syncPipelineButtons(); }
 }
 
+let pipelinePollTimer = null;
+
+function startPipelinePolling(runId) {
+  if (pipelinePollTimer) clearInterval(pipelinePollTimer);
+  pipelinePollTimer = setInterval(async () => {
+    try {
+      const run = await api("/pipeline/runs/" + runId);
+      updatePipelineRunStatus(run);
+      await loadPipelineRuns();
+      if (run.status === "completed" || run.status === "error" || run.status === "cancelled") {
+        clearInterval(pipelinePollTimer);
+        pipelinePollTimer = null;
+        syncPipelineButtons();
+      }
+    } catch {
+      clearInterval(pipelinePollTimer);
+      pipelinePollTimer = null;
+    }
+  }, 2000);
+}
+
 async function stopPipeline() {
-  if (!state.lastRunId) { alert("没有正在执行的流水线"); return; }
   const stopBtn = document.getElementById("stopPipelineBtn");
   stopBtn.disabled = true;
+  stopBtn.textContent = "⏹ 查找中...";
+  
+  // 实时查询最新运行记录，找到正在执行的流水线
+  let runId = null;
+  try {
+    const runs = await api("/pipeline/runs");
+    const running = runs.find((r) => r.status === "running");
+    if (running) runId = running.run_id;
+  } catch {}
+  
+  if (!runId) {
+    runId = state.lastRunId; // 兜底
+  }
+  if (!runId) { alert("没有正在执行的流水线"); stopBtn.disabled = false; stopBtn.textContent = "⏹ 停止"; return; }
+  
   stopBtn.textContent = "⏹ 停止中...";
   try {
-    await api("/pipeline/runs/" + state.lastRunId + "/cancel", { method: "POST" });
+    await api("/pipeline/runs/" + runId + "/cancel", { method: "POST" });
   } catch (e) { alert("停止失败: " + e.message); }
   finally {
     stopBtn.disabled = false;
-    stopBtn.textContent = "⏹ 停止";
-    setTimeout(() => loadPipelineRuns(), 2000);
+    stopBtn.textContent = "⏹ 停止中";
   }
 }
 
@@ -850,6 +931,25 @@ async function generateScript() {
     else alert("生成失败: " + (result.error || "未知错误"));
   } catch (e) { alert("生成失败: " + e.message); }
   finally { btn.disabled = false; btn.textContent = "✨ AI 生成"; }
+}
+
+// ========== AI 修改文案 ==========
+async function modifyScript() {
+  const instruction = document.getElementById("modifyInstruction").value.trim();
+  const currentScript = document.getElementById("storyInput").value.trim();
+  if (!currentScript) { alert("请先生成文案"); return; }
+  if (!instruction) { alert("请输入修改要求"); return; }
+  const btn = document.getElementById("modifyBtn");
+  btn.disabled = true; btn.textContent = "⏳ 修改中...";
+  try {
+    const result = await api("/script/modify", { body: { topic: currentScript, custom_prompt: instruction } });
+    if (result.modified && result.script) {
+      document.getElementById("storyInput").value = result.script;
+      localStorage.setItem("zctools_script", result.script);
+    }
+    else alert("修改失败: " + (result.error || "未知错误"));
+  } catch (e) { alert("修改失败: " + e.message); }
+  finally { btn.disabled = false; btn.textContent = "✨ AI 修改"; }
 }
 
 // ========== 系统提示词 ==========
@@ -946,34 +1046,69 @@ async function loadLLMConfig() {
     document.getElementById("llmBaseUrl").value = config.base_url || "";
     document.getElementById("llmModel").value = config.model || "";
     document.getElementById("llmKeyStatus").textContent = config.has_key ? "🔑 已配置" : "❌ 未配置";
-    document.getElementById("llmConfigInfo").innerHTML = config.has_key ? `状态：已配置 ✅ | Key: ${config.key_preview}` : "状态：未配置 ❌ 请填写 API Key 并保存";
+    document.getElementById("llmConfigInfo").innerHTML = config.has_key ? `状态：已配置 ✅ | Key: ${config.key_preview}` : "状态：未配置 ❌ 请先填写 API 地址和 Key，然后测试连接";
   } catch (e) { document.getElementById("llmConfigInfo").textContent = "加载失败: " + e.message; }
+}
+
+async function fetchModels() {
+  const input = document.getElementById("llmModel");
+  const dl = document.getElementById("modelList");
+  const btn = document.getElementById("fetchModelsBtn");
+  const baseUrl = document.getElementById("llmBaseUrl").value.trim();
+  const apiKey = document.getElementById("llmApiKey").value.trim();
+  if (!baseUrl || !apiKey) { alert("请先填写 API 地址和 Key 并测试连接"); return; }
+  btn.disabled = true; btn.textContent = "⏳";
+  input.value = "";  // 清空输入框，让 datalist 显示全部选项
+  try {
+    const url = "/llm/models?base_url=" + encodeURIComponent(baseUrl) + "&api_key=" + encodeURIComponent(apiKey);
+    const result = await api(url);
+    dl.innerHTML = "";
+    if (result.models && result.models.length > 0) {
+      result.models.forEach(m => {
+        const opt = document.createElement("option");
+        opt.value = m;
+        dl.appendChild(opt);
+      });
+    }
+    btn.textContent = "🔄 刷新";
+  } catch (e) {
+    btn.textContent = "🔄 刷新";
+  }
+  btn.disabled = false;
 }
 
 async function saveLLMConfig() {
   const baseUrl = document.getElementById("llmBaseUrl").value.trim();
   const model = document.getElementById("llmModel").value.trim();
   const apiKey = document.getElementById("llmApiKey").value.trim();
-  if (!baseUrl) { alert("请填写 API 地址"); return; }
-  if (!model) { alert("请填写模型名称"); return; }
-  if (!apiKey) { alert("请填写 API Key"); return; }
+  if (!baseUrl) { alert("请先填写 API 地址"); return; }
+  if (!model) { alert("请先选择模型"); return; }
+  if (!apiKey) { alert("请先填写 API Key"); return; }
   try {
     const result = await api("/llm/config", { body: { base_url: baseUrl, model: model, api_key: apiKey } });
     document.getElementById("llmKeyStatus").textContent = result.has_key ? "🔑 已配置" : "❌ 未配置";
     document.getElementById("llmConfigInfo").innerHTML = result.has_key ? `状态：已配置 ✅ | Key: ${result.key_preview}` : "状态：未配置 ❌";
     document.getElementById("llmApiKey").value = "";
-    if (result.configured) alert("配置已保存");
+    if (result.configured) alert("✅ 配置已保存！现在可以生成文案了。");
   } catch (e) { alert("保存失败: " + e.message); }
 }
 
 async function testLLMConfig() {
+  const baseUrl = document.getElementById("llmBaseUrl").value.trim();
+  const apiKey = document.getElementById("llmApiKey").value.trim();
+  if (!baseUrl) { alert("请先填写 API 地址"); return; }
+  if (!apiKey) { alert("请先填写 API Key"); return; }
   const btn = document.querySelector(".settings-actions .btn-outline");
   const resultEl = document.getElementById("llmTestResult");
   btn.disabled = true; btn.textContent = "⏳ 测试中..."; resultEl.textContent = "";
   try {
-    const result = await api("/llm/test");
+    const result = await api("/llm/test", { method: "POST", body: { base_url: baseUrl, api_key: apiKey } });
     resultEl.innerHTML = result.ok ? `✅ 连接成功: "${result.reply}"` : "❌ 连接失败，请检查配置";
     resultEl.className = result.ok ? "settings-test-result success" : "settings-test-result error";
+    // 测试成功后自动拉取模型列表
+    if (result.ok) {
+      fetchModels();
+    }
   } catch (e) { resultEl.textContent = "❌ 测试失败: " + e.message; resultEl.className = "settings-test-result error"; }
   finally { btn.disabled = false; btn.textContent = "📡 测试连接"; }
 }

@@ -418,9 +418,10 @@ class PipelineRun:
         }
 
     def run_sync(self, project_data: dict) -> dict:
-        """同步执行所有步骤（后续可改为异步队列）"""
+        """同步执行所有步骤（每步结束后存盘，支持前端轮询）"""
         self.status = "running"
         self.updated_at = datetime.now().isoformat()
+        save_run(self)
 
         accumulated = {}  # 累积前序步骤的输出
 
@@ -431,15 +432,18 @@ class PipelineRun:
             if self.cancel_requested:
                 self.status = "cancelled"
                 self.error = "用户取消执行"
+                save_run(self)
                 return self.to_dict()
 
             # 可选步骤：跳过
             if step["optional"] and not step["config"]:
                 step["status"] = "skipped"
+                save_run(self)
                 continue
 
             step["status"] = "running"
             self.updated_at = datetime.now().isoformat()
+            save_run(self)
 
             # 合并累积输出到当前步骤配置
             merged_config = {**accumulated, **step["config"]}
@@ -458,17 +462,22 @@ class PipelineRun:
                     step["error"] = result.get("error", "未知错误")
                     self.status = "error"
                     self.error = f"步骤 {step['label']} 失败: {step['error']}"
+                    save_run(self)
                     return self.to_dict()
             except Exception as e:
                 step["status"] = "error"
                 step["error"] = str(e)
                 self.status = "error"
                 self.error = f"步骤 {step['label']} 异常: {e}"
+                save_run(self)
                 return self.to_dict()
+
+            save_run(self)
 
         self.status = "completed"
         self.current_step = len(self.steps) - 1
         self.updated_at = datetime.now().isoformat()
+        save_run(self)
         return self.to_dict()
 
 

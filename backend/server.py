@@ -7,7 +7,7 @@
 工作流目录: ./workflows/
 端口: 8765 (可通过 ZCTOOLS_PORT 环境变量设置)
 """
-import json, os, uuid, sys
+import json, os, uuid, sys, requests, threading
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 from pathlib import Path
@@ -30,6 +30,13 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, RedirectResponse, Response
 from pydantic import BaseModel
 import uvicorn
+
+# 反缓存头
+NO_CACHE_HEADERS = {
+    "Cache-Control": "no-cache, no-store, must-revalidate",
+    "Pragma": "no-cache",
+    "Expires": "0",
+}
 
 # ============================================================
 # 应用初始化
@@ -62,15 +69,15 @@ if FRONTEND_DIR.exists():
 
 @app.get("/")
 def serve_root():
-    return FileResponse(str(FRONTEND_DIR / "index.html"))
+    return FileResponse(str(FRONTEND_DIR / "index.html"), headers=NO_CACHE_HEADERS)
 
 @app.get("/css/{file}")
 def serve_css(file: str):
-    return FileResponse(str(FRONTEND_DIR / "css" / file))
+    return FileResponse(str(FRONTEND_DIR / "css" / file), headers=NO_CACHE_HEADERS)
 
 @app.get("/js/{file}")
 def serve_js(file: str):
-    return FileResponse(str(FRONTEND_DIR / "js" / file))
+    return FileResponse(str(FRONTEND_DIR / "js" / file), headers=NO_CACHE_HEADERS)
 
 @app.head("/css/{file}")
 @app.head("/js/{file}")
@@ -387,6 +394,37 @@ def generate_script(req: ScriptGenerateRequest):
     return {"script": "", "generated": False, "error": "LLM 生成失败，请检查配置"}
 
 
+@app.post("/api/script/modify")
+def modify_script(req: ScriptGenerateRequest):
+    """用 LLM 根据用户要求修改已有文案"""
+    current_script = req.topic or ""
+    if not current_script:
+        raise HTTPException(400, "请先生成文案")
+    if not req.custom_prompt:
+        raise HTTPException(400, "请输入修改要求")
+
+    system_prompt = "你是一个专业的短视频文案编辑。根据用户的要求修改已有文案，保留原意的同时满足修改需求。"
+    user_prompt = (
+        f"当前文案：\n{current_script}\n\n"
+        f"修改要求：{req.custom_prompt}\n\n"
+        f"要求：\n"
+        f"1. 根据修改要求改写文案\n"
+        f"2. 直接输出修改后的完整文案，不要加说明\n"
+        f"3. 保持口语化、有画面感"
+    )
+
+    result = llm_mod.call_llm(
+        messages=[{"role": "user", "content": user_prompt}],
+        system_prompt=system_prompt,
+        temperature=0.7,
+        max_tokens=4096,
+    )
+
+    if result:
+        return {"script": result.strip(), "modified": True}
+    return {"script": "", "modified": False, "error": "LLM 修改失败，请检查配置"}
+
+
 # ============================================================
 # API: 文案分析 → 分镜 + SRT
 # ============================================================
@@ -575,20 +613,64 @@ def set_llm_config(req: LLMConfigRequest):
     return llm_mod.get_status()
 
 @app.post("/api/llm/test")
-def test_llm_connection():
-    result = llm_mod.call_llm(
-        messages=[{"role": "user", "content": "回复OK即可"}],
-        max_tokens=10,
-    )
-    if result:
-        return {"ok": True, "reply": result.strip()}
-    return {"ok": False, "reply": ""}
+def test_llm_connection(req: LLMConfigRequest = None):
+    """测试 LLM 连通性。只验证 base_url 可达 + api_key 有效，不依赖模型。"""
+    if req and req.base_url and req.api_key:
+        base_url = req.base_url.rstrip("/")
+        api_key = req.api_key
+    else:
+        config = llm_mod.get_config()
+        base_url = config.get("base_url", "").rstrip("/")
+        api_key = llm_mod.get_api_key()
+    if not base_url or not api_key:
+        return {"ok": False, "reply": "请填写 API 地址和 Key"}
+    try:
+        resp = requests.get(
+            f"{base_url}/models",
+            headers={"Authorization": f"Bearer {api_key}"},
+            timeout=10,
+            proxies={"http": "", "https": ""},
+        )
+        # 能收到响应就算连通（即使是 403/401 也说明通了）
+        if resp.status_code < 500:
+            return {"ok": True, "reply": f"连通 ✅ (响应码 {resp.status_code})"}
+        return {"ok": False, "reply": f"服务端错误 (响应码 {resp.status_code})"}
+    except requests.ConnectionError:
+        return {"ok": False, "reply": "无法连接，请检查地址和网络/代理"}
+    except requests.Timeout:
+        return {"ok": False, "reply": "连接超时，请检查地址和网络/代理"}
+    except Exception as e:
+        return {"ok": False, "reply": f"连接失败: {str(e)[:60]}"}
 
+@app.get("/api/llm/models")
+def list_llm_models(base_url: str = "", api_key: str = ""):
+    """从配置的中转站获取可用模型列表。商汤返回已知模型。"""
+    config = llm_mod.get_config()
+    use_url = base_url or config.get("base_url", "")
+    use_key = api_key or llm_mod.get_api_key()
+    if not use_url or not use_key:
+        return {"models": []}
 
+    try:
+        resp = requests.get(
+            f"{use_url}/models",
+            headers={"Authorization": f"Bearer {use_key}"},
+            timeout=10,
+            proxies={"http": "", "https": ""},
+        )
+        if resp.status_code != 200:
+            return {"models": []}
+        data = resp.json()
+        models = [m.get("id", "") for m in data.get("data", []) if m.get("id")]
+        return {"models": models}
+        return {"models": models}
+    except Exception as e:
+        print(f"Fetch models error: {e}")
+        return {"models": []}
+
+        # ============================================================
 # ============================================================
 # API: 流水线 (Pipeline)
-# ============================================================
-
 class PipelineRunRequest(BaseModel):
     project_id: str = ""
     config: Dict[str, Any] = {}
@@ -630,9 +712,20 @@ def run_pipeline(req: PipelineRunRequest):
     run = pl.PipelineRun(project_id=req.project_id)
     run.init_steps(req.config)
     pl.save_run(run)
-    result = run.run_sync(project_data)
-    pl.save_run(run)
-    return result
+
+    # 后台线程执行，API 立即返回
+    def _run_bg():
+        try:
+            run.run_sync(project_data)
+        except Exception as e:
+            run.status = "error"
+            run.error = str(e)
+            pl.save_run(run)
+
+    t = threading.Thread(target=_run_bg, daemon=True)
+    t.start()
+
+    return run.to_dict()
 
 @app.get("/api/pipeline/runs")
 def list_pipeline_runs(project_id: str = ""):
@@ -677,7 +770,7 @@ def cancel_pipeline_run(run_id: str):
     if not run:
         raise HTTPException(404, "Run not found")
     if run.status != "running":
-        raise HTTPException(400, "只能取消正在执行的流水线")
+        return {"status": "already_stopped", "message": "流水线已结束"}
     run.cancel_requested = True
     pl.save_run(run)
     return {"status": "cancelling"}
@@ -886,7 +979,7 @@ def main():
     print("  register_generation_handler(my_handler)")
     print("=" * 50)
 
-    uvicorn.run(app, host=host, port=port)
+    uvicorn.run(app, host=host, port=port, workers=1)
 
 
 if __name__ == "__main__":

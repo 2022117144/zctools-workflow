@@ -3,8 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=1280">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>智创工具</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=2">
 </head>
 <body>
 
@@ -65,6 +68,12 @@
       </div>
       <div class="prompt-preview-bar" id="promptPreview">选择一种风格，AI 将按此风格生成文案</div>
       <textarea id="storyInput" class="editor" placeholder="AI 生成的文案会出现在这里，你也可以手动修改..." spellcheck="false"></textarea>
+      <form autocomplete="off" style="display:contents">
+        <div class="script-modify-bar">
+          <input id="modifyInstruction" class="inp-full modify-input" placeholder="输入修改要求，如：再详细一点、换一个幽默的风格、缩短到100字..." maxlength="200">
+          <button class="btn btn-primary btn-sm" onclick="modifyScript()" id="modifyBtn">✨ AI 修改</button>
+        </div>
+      </form>
     </div>
 
     <!-- 分镜 Tab -->
@@ -174,7 +183,11 @@
         </div>
         <div class="settings-row">
           <label class="settings-label">模型 <span style="color:var(--red)">*</span></label>
-          <input id="llmModel" class="inp-full" placeholder="gpt-4o">
+          <div class="model-select-wrap">
+            <input id="llmModel" class="inp-full" list="modelList" placeholder="deepseek-v4-flash">
+            <datalist id="modelList"></datalist>
+            <button class="btn btn-sm btn-outline" onclick="fetchModels()" id="fetchModelsBtn" title="获取可用模型列表">🔄 刷新</button>
+          </div>
         </div>
         <div class="settings-row">
           <label class="settings-label">API Key <span style="color:var(--red)">*</span></label>
@@ -182,8 +195,8 @@
           <span id="llmKeyStatus" class="settings-status"></span>
         </div>
         <div class="settings-actions">
-          <button class="btn btn-primary" onclick="saveLLMConfig()">💾 保存配置</button>
-          <button class="btn btn-outline" onclick="testLLMConfig()">📡 测试连接</button>
+          <button class="btn btn-outline" onclick="testLLMConfig()">📡 ① 测试连接</button>
+          <button class="btn btn-primary" onclick="saveLLMConfig()" style="margin-left:4px">💾 ② 保存配置</button>
           <span id="llmTestResult" class="settings-test-result"></span>
         </div>
         <div class="settings-info" id="llmConfigInfo"></div>
@@ -235,9 +248,13 @@
     <section class="panel-section" style="flex:1">
       <div class="section-title">📊 流水线状态</div>
       <div id="rightPipelineStatus" style="font-size:11px;color:var(--text-secondary)">
-        <div>步骤 1/7 · 文案 ✅</div>
-        <div>步骤 2/7 · STR ✅</div>
+        <div>步骤 1/7 · 文案 ⏳</div>
+        <div>步骤 2/7 · STR ⏳</div>
         <div>步骤 3/7 · 分镜 ⏳</div>
+        <div>步骤 4/7 · 图片 ⏳</div>
+        <div>步骤 5/7 · 视频 ⏳</div>
+        <div>步骤 6/7 · 合成 ⏳</div>
+        <div>步骤 7/7 · 发送 ⏳</div>
         <div style="color:var(--text-muted);margin-top:8px;font-size:10px">点击流水线 Tab 查看详情</div>
       </div>
     </section>
@@ -287,6 +304,6 @@
   </div>
 </div>
 
-<script src="js/app.js"></script>
+<script src="js/app.js?v=2"></script>
 </body>
 </html>

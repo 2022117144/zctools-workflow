@@ -66,19 +66,21 @@ def call_llm(
     model: str = "",
     temperature: float = 0,
     max_tokens: int = 2048,
+    override_base_url: str = "",
+    override_api_key: str = "",
 ) -> Optional[str]:
     """
     调用中转站 LLM，返回回复文本。
+    可传 override_base_url/override_api_key 做临时测试（不保存）。
     失败返回 None。
     """
-    if not is_configured():
-        print("LLM call skipped: 未配置 LLM（请先在设置页配置中转站）")
+    config = get_config()
+    api_key = override_api_key or get_api_key()
+    if not api_key:
+        print("LLM call skipped: 未配置 API Key")
         return None
 
-    config = get_config()
-    api_key = get_api_key()
-
-    base_url = config.get("base_url", "").rstrip("/")
+    base_url = (override_base_url or config.get("base_url", "")).rstrip("/")
     model = model or config.get("model", "")
     temp = temperature if temperature > 0 else config.get("temperature", 0.7)
     mt = min(max_tokens, config.get("max_tokens", 4096))
